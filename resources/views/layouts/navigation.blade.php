@@ -75,6 +75,11 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <!-- Cambiar contraseña -->
+                        <x-dropdown-link :href="route('contrasena.cambiar')">
+                            {{ __('Cambiar contraseña') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -130,6 +135,11 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                <!-- Cambiar contraseña -->
+                <x-responsive-nav-link :href="route('contrasena.cambiar')">
+                    {{ __('Cambiar contraseña') }}
+                </x-responsive-nav-link>
+
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

@@ -155,3 +155,25 @@ Se implementa el modulo de consulta y auditoria de Bitacora del Sistema (Paquete
    - GET /bitacora/{id} (bitacora.mostrar)
 
 
+=== PASO 10: Modulo de Cambio de Contrasena y Seguridad de Sesiones ===
+
+TITULO COMMIT:
+Implementacion del modulo de cambio de contrasena con validacion de politica RN-01 y cierre de sesiones
+
+EXPLICACION:
+Se implementa el modulo de seguridad personal para cambio de contrasena (CU03) cumpliendo con la regla de negocio RN-01:
+
+1. Controlador (app/Http/Controllers/Auth/PasswordController.php):
+   - edit(): Muestra el formulario semantico de cambio de contrasena.
+   - update(): Valida contrasena actual contra el hash, evalua expresion regular de contrasena segura (RN-01), confirma no repeticion de contrasena anterior, actualiza hash y bandera 'debe_cambiar_contrasena' en transaccion, registra auditoria en BitacoraService (CAMBIO_CONTRASENA) y cierra sesiones abiertas en otros navegadores.
+
+2. Vistas Blade y Navegacion:
+   - resources/views/contrasena/cambiar.blade.php: Formulario semantico con ayuda de politicas de contrasena segura y mensajes de alerta.
+   - resources/views/layouts/navigation.blade.php: Enlace de acceso rapido a "Cambiar contrasena" en el menu desplegable de perfil de usuario tanto en escritorio como en responsive.
+
+3. Rutas (routes/auth.php):
+   - GET /contrasena/cambiar (contrasena.cambiar)
+   - POST /contrasena/cambiar (contrasena.guardar)
+
+
+
