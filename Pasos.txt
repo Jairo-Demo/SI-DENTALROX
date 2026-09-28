@@ -1,0 +1,43 @@
+=== PASO 2: Creacion de modelos, migraciones y controladores base (MCR) ===
+
+TITULO COMMIT:
+Creacion de modelos y migraciones de la base de datos
+
+EXPLICACION:
+Se generan los modelos Eloquent, controladores con recursos (-mcr) y archivos de migracion para estructurar la base de datos MySQL en orden de dependencias:
+
+1. Capa Atomica (Catalogos e independientes):
+   - php artisan make:model Especialidad -mcr
+   - php artisan make:model AntecedenteMedico -mcr
+   - php artisan make:model PiezaDental -mcr
+   - php artisan make:model EstadoPieza -mcr
+   - php artisan make:model Diagnostico -mcr
+   - php artisan make:model TipoEstudio -mcr
+   - php artisan make:model Material -mcr
+   - php artisan make:model EstadoCita -mcr
+   - php artisan make:model MetodoPago -mcr
+   - php artisan make:model Paciente -mcr
+   - php artisan make:model Tratamiento -mcr
+
+2. Capa de Seguridad y Dependencias Nivel 1:
+   - Modificacion de la tabla users (roles, especialidad_id, control de intentos y bloqueos).
+   - php artisan make:model Bitacora -mcr
+   - php artisan make:model Aviso -mcr
+   - php artisan make:model HistoriaClinica -mcr
+   - php artisan make:model Tarifa -mcr
+   - php artisan make:model PlanTratamiento -mcr
+   - php artisan make:model Odontograma -mcr
+   - php artisan make:model Cita -mcr
+   - php artisan make:model EstudioDiagnostico -mcr
+   - php artisan make:model Pago -mcr
+
+3. Capa Asociativa y Detalle:
+   - php artisan make:model TratamientoAplicado -mcr
+   - php artisan make:model DetalleOdontograma -mcr
+   - php artisan make:model Sesion -mcr
+   - php artisan make:model SesionMaterial -mcr
+   - php artisan make:model ValoracionImplante -mcr
+   - php artisan make:model Control -mcr
+
+4. Ejecucion de migraciones:
+   - php artisan migrate (o php artisan migrate:fresh)
