@@ -14,3 +14,25 @@ Se estructuran los 29 modelos Eloquent con sus fillable, hidden, casts y relacio
 
 3. Controladores (app/Http/Controllers):
    - Controladores base generados para la gestion de cada entidad.
+
+
+=== PASO 3: Creacion de Seeders Iniciales (Especialidades y Usuarios) ===
+
+TITULO COMMIT:
+Creacion de seeders para especialidades odontologicas y usuarios iniciales
+
+EXPLICACION:
+Se crean los seeders para poblar datos esenciales de prueba en la base de datos MySQL sin necesidad de reiniciar la estructura de las tablas:
+
+1. EspecialidadSeeder (database/seeders/EspecialidadSeeder.php):
+   - Catalogo inicial con 7 especialidades (Odontologia General, Ortodoncia, Endodoncia, Periodoncia, Cirugia Maxilofacial, Implantologia, Odontopediatria).
+
+2. UserSeeder (database/seeders/UserSeeder.php):
+   - Usuario Administrador: usuario 'admin' (pass 'Admin123*').
+   - Usuario Odontologo: usuario 'odontologo1' (pass 'Odonto123*').
+
+3. DatabaseSeeder (database/seeders/DatabaseSeeder.php):
+   - Registro de llamadas usando $this->call().
+
+4. Ejecucion:
+   - php artisan db:seed
