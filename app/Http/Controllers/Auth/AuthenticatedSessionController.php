@@ -9,10 +9,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ * Controlador para la gestión del Inicio y Cierre de Sesión (MVC).
+ * Conecta la vista Blade con el Modelo User y la base de datos.
+ */
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Muestra la vista del formulario de Login (Ruta GET).
      */
     public function create(): View
     {
@@ -20,28 +24,35 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Handle an incoming authentication request.
+     * Procesa las credenciales del formulario e inicia la sesión (Ruta POST).
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // 1. Ejecuta la validación y autenticación en la BD (LoginRequest)
         $request->authenticate();
 
+        // 2. Regenera el ID de sesión para prevenir ataques de Session Fixation
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // 3. Redirige al panel principal (Dashboard)
+        return redirect()->intended(route('dashboard'));
     }
 
     /**
-     * Destroy an authenticated session.
+     * Cierra la sesión activa del usuario (Ruta POST).
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+        // 1. Cierra la sesión en el Guard de autenticación
+        Auth::logout();
 
+        // 2. Invalida la sesión actual del usuario
         $request->session()->invalidate();
 
+        // 3. Regenera el token CSRF para seguridad en el formulario
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        // 4. Redirige al Login con un mensaje flash de éxito
+        return redirect()->route('login')->with('exito', 'Sesión cerrada correctamente.');
     }
 }

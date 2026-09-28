@@ -36,3 +36,23 @@ Se crean los seeders para poblar datos esenciales de prueba en la base de datos 
 
 4. Ejecucion:
    - php artisan db:seed
+
+
+=== PASO 5: Modulo de Autenticacion MVC y Diseno Desacoplado de Login ===
+
+TITULO COMMIT:
+Implementacion de modulo de login MVC con CSS desacoplado y autenticacion por usuario
+
+EXPLICACION:
+Se implementa el flujo MVC completo para el inicio y cierre de sesion con separacion estricta de HTML y CSS:
+
+1. Frontend y Estilos (Desacoplados):
+   - public/css/login.css: Diseno moderno con estetica odontologica/medica, tarjeta centrada, variables de color y manejo de estados focus/hover y alertas.
+   - resources/views/auth/login.blade.php: Vista semantica limpia enlazada mediante asset('css/login.css') con input 'usuario' y token CSRF.
+
+2. Backend y Logica MVC:
+   - app/Http/Requests/Auth/LoginRequest.php: Validacion en linea para 'usuario' y 'password' con rate limiting contra ataques de fuerza bruta.
+   - app/Http/Controllers/Auth/AuthenticatedSessionController.php: Control de flujo (create para vista, store para autenticar con regeneracion de sesion y destroy para logout seguro).
+
+3. Rutas (routes/auth.php y routes/web.php):
+   - GET /login, POST /login, POST /logout y redireccion de raiz al login.
