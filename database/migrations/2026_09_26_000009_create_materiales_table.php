@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('especialidads', function (Blueprint $table) {
+        Schema::create('materiales', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nombre', 60)->unique();
+            $table->text('descripcion')->nullable();
+            $table->string('categoria', 20);
+            $table->string('unidad_medida', 15);
+            $table->enum('estado', ['activo', 'inactivo'])->default('activo');
         });
     }
 
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('especialidads');
+        Schema::dropIfExists('materiales');
     }
 };

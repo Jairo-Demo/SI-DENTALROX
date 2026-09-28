@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sesion_materials', function (Blueprint $table) {
+        Schema::create('tipos_estudio', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nombre', 50)->unique();
+            $table->text('descripcion')->nullable();
+            $table->enum('estado', ['activo', 'inactivo'])->default('activo');
         });
     }
 
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sesion_materials');
+        Schema::dropIfExists('tipos_estudio');
     }
 };

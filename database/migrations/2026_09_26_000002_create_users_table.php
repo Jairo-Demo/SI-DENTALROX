@@ -13,10 +13,23 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('nombres', 50);
+            $table->string('apellidos', 50);
+            $table->string('ci', 15)->unique();
+            $table->string('matricula_profesional', 20);
+            $table->foreignId('especialidad_id')
+                ->constrained('especialidades')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+            $table->string('correo', 100)->unique();
+            $table->string('usuario', 30)->unique();
             $table->string('password');
+            $table->string('telefono', 15);
+            $table->enum('rol', ['administrador', 'odontologo']);
+            $table->enum('estado', ['activo', 'inactivo'])->default('activo');
+            $table->unsignedTinyInteger('intentos_fallidos')->default(0);
+            $table->dateTime('bloqueado_hasta')->nullable();
+            $table->boolean('debe_cambiar_contrasena')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -6,5 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class SesionMaterial extends Model
 {
-    //
+    /**
+     * Nombre de la tabla.
+     */
+    protected $table = 'sesiones_materiales';
+
+    /**
+     * La tabla no tiene columnas created_at / updated_at.
+     */
+    public $timestamps = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'sesion_id',
+        'material_id',
+        'cantidad',
+        'observacion',
+    ];
 }

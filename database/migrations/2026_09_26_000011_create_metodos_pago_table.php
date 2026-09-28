@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('diagnosticos', function (Blueprint $table) {
+        Schema::create('metodos_pago', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nombre', 30)->unique();
+            $table->text('descripcion')->nullable();
+            $table->enum('estado', ['activo', 'inactivo'])->default('activo');
         });
     }
 
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('diagnosticos');
+        Schema::dropIfExists('metodos_pago');
     }
 };

@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('historia_antecedentes', function (Blueprint $table) {
+        Schema::create('diagnosticos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('codigo', 10)->unique();
+            $table->string('nombre', 60);
+            $table->text('descripcion')->nullable();
+            $table->enum('estado', ['activo', 'inactivo'])->default('activo');
         });
     }
 
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('historia_antecedentes');
+        Schema::dropIfExists('diagnosticos');
     }
 };
