@@ -58,37 +58,37 @@
             @endif
 
             <!-- Tarjeta Principal: Tabla de Especialidades -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 space-y-4">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border border-gray-100 dark:border-gray-700">
+                <div class="p-6 text-gray-900 dark:text-gray-100 space-y-4">
                     
                     <div class="flex justify-between items-center">
-                        <p class="text-sm text-gray-500">Listado de especialidades registradas para asignación de odontólogos.</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">Listado de especialidades registradas para asignación de odontólogos.</p>
                         <x-primary-button type="button" @click="nuevo()">
                             + Nueva Especialidad
                         </x-primary-button>
                     </div>
 
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200 text-sm">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
                             <thead>
-                                <tr class="text-left text-xs font-semibold uppercase tracking-wider text-gray-500 bg-gray-50">
+                                <tr class="text-left text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700/50">
                                     <th class="px-4 py-3">Nombre</th>
                                     <th class="px-4 py-3">Descripción</th>
                                     <th class="px-4 py-3 text-center">Odontólogos</th>
                                     <th class="px-4 py-3 text-center">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-100">
+                            <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                                 @forelse ($especialidades as $especialidad)
-                                    <tr class="align-top hover:bg-gray-50/50 transition">
+                                    <tr class="align-top hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition text-gray-900 dark:text-gray-100">
                                         <td class="px-4 py-3">
-                                            <a href="{{ route('especialidades.mostrar', $especialidad->id) }}" class="font-semibold text-indigo-600 hover:underline">
+                                            <a href="{{ route('especialidades.mostrar', $especialidad->id) }}" class="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
                                                 {{ $especialidad->nombre }}
                                             </a>
                                         </td>
-                                        <td class="px-4 py-3 text-gray-600">{{ $especialidad->descripcion ?? '—' }}</td>
+                                        <td class="px-4 py-3 text-gray-700 dark:text-gray-300">{{ $especialidad->descripcion ?? '—' }}</td>
                                         <td class="px-4 py-3 text-center font-medium">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-800">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600">
                                                 {{ $especialidad->usuarios_count }}
                                             </span>
                                         </td>
@@ -110,7 +110,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="px-4 py-8 text-center text-gray-400">
+                                        <td colspan="4" class="px-4 py-8 text-center text-gray-400 dark:text-gray-500">
                                             No hay especialidades registradas en el catálogo.
                                         </td>
                                     </tr>

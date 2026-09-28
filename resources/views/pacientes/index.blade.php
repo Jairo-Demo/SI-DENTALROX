@@ -86,31 +86,31 @@
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
                             <thead>
-                                <tr class="text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    <th class="px-3 py-2">CI</th>
-                                    <th class="px-3 py-2">Nombre completo</th>
-                                    <th class="px-3 py-2">Edad</th>
-                                    <th class="px-3 py-2">Teléfono</th>
-                                    <th class="px-3 py-2">Estado</th>
-                                    <th class="px-3 py-2">Acciones</th>
+                                <tr class="text-left text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700/50">
+                                    <th class="px-3 py-2.5">CI</th>
+                                    <th class="px-3 py-2.5">Nombre completo</th>
+                                    <th class="px-3 py-2.5">Edad</th>
+                                    <th class="px-3 py-2.5">Teléfono</th>
+                                    <th class="px-3 py-2.5">Estado</th>
+                                    <th class="px-3 py-2.5">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                                 @forelse ($pacientes as $p)
-                                    <tr class="align-top">
-                                        <td class="px-3 py-3">{{ $p->ci }}</td>
+                                    <tr class="align-top text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                        <td class="px-3 py-3 font-medium text-gray-900 dark:text-gray-100">{{ $p->ci }}</td>
                                         <td class="px-3 py-3">
-                                            <a href="{{ route('pacientes.mostrar', $p->id) }}" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+                                            <a href="{{ route('pacientes.mostrar', $p->id) }}" class="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
                                                 {{ $p->apellidos }}, {{ $p->nombres }}
                                             </a>
                                         </td>
-                                        <td class="px-3 py-3 whitespace-nowrap">{{ $p->edad() }} años</td>
-                                        <td class="px-3 py-3">{{ $p->telefono ?? '—' }}</td>
+                                        <td class="px-3 py-3 whitespace-nowrap text-gray-800 dark:text-gray-200">{{ $p->edad() }} años</td>
+                                        <td class="px-3 py-3 text-gray-800 dark:text-gray-200">{{ $p->telefono ?? '—' }}</td>
                                         <td class="px-3 py-3">
                                             @if ($p->estado === 'activo')
-                                                <span class="inline-flex rounded-full bg-green-100 dark:bg-green-900/40 px-2 py-0.5 text-xs font-medium text-green-800 dark:text-green-200">Activo</span>
+                                                <span class="inline-flex rounded-full bg-green-100 dark:bg-green-900/60 px-2.5 py-0.5 text-xs font-semibold text-green-800 dark:text-green-200 border border-green-300 dark:border-green-700">Activo</span>
                                             @else
-                                                <span class="inline-flex rounded-full bg-gray-200 dark:bg-gray-700 px-2 py-0.5 text-xs font-medium text-gray-700 dark:text-gray-300">Inactivo</span>
+                                                <span class="inline-flex rounded-full bg-gray-200 dark:bg-gray-700 px-2.5 py-0.5 text-xs font-semibold text-gray-800 dark:text-gray-200 border border-gray-400 dark:border-gray-600">Inactivo</span>
                                             @endif
                                         </td>
                                         <td class="px-3 py-3">

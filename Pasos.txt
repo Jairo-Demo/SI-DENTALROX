@@ -176,4 +176,38 @@ Se implementa el modulo de seguridad personal para cambio de contrasena (CU03) c
    - POST /contrasena/cambiar (contrasena.guardar)
 
 
+=== PASO 11: Modulo de Gestion de Usuarios, Roles, Accesos y Middlewares de Seguridad ===
+
+TITULO COMMIT:
+Implementacion de gestion de usuarios, asignacion de roles, restablecimiento de acceso y middlewares de seguridad
+
+EXPLICACION:
+Se implementa el modulo completo de Administracion de Usuarios y Seguridad (Paquete 1 - CU04, CU05, CU06) junto con el sistema de middlewares de control de acceso:
+
+1. Middlewares de Seguridad (app/Http/Middleware/ y bootstrap/app.php):
+   - VerificarRol ('rol'): Restringe el acceso segun el rol del usuario (RN-05).
+   - VerificarCuentaActiva ('cuenta.activa'): Expulsa y cierra sesion si la cuenta fue inhabilitada.
+   - ExigirCambioContrasena ('cambio.contrasena'): Obliga a reemplazar contrasenas temporales antes de navegar.
+   - ControlarInactividad ('inactividad'): Cierre automatico de sesion por inactividad tras N minutos (RNF-03).
+   - Parametrizacion en config/dentalrox.php (intentos maximos, minutos de bloqueo e inactividad).
+
+2. Controlador (app/Http/Controllers/UsuarioController.php):
+   - index(): Busqueda de usuarios por CI, nombres, apellidos o usuario, con paginacion y lista de especialidades.
+   - store(): Registro con contrasena segura inicial y obligatoriedad de cambio de contrasena en primer ingreso (CU04).
+   - update(): Modificacion de datos personales con validacion de unicidad ignorando el ID actual.
+   - delete(): Inhabilitacion suave (estado inactivo), protegiendo al unico administrador activo y evitando autoinhabilitacion.
+   - activar(): Habilitacion de cuentas inactivas.
+   - asignarRol(): Asignacion dinamica de roles (administrador / odontologo) garantizando que quede al menos un administrador activo (CU05).
+   - restablecerAcceso(): Generacion segura de contrasena temporal de 12 caracteres (RN-01), cierre de sesiones y muestra unica de la clave al administrador (CU06).
+   - show(): Ficha de detalle con resumen de acceso, intentos fallidos y tiempo de bloqueo restante (RN-03).
+
+3. Vistas Blade (resources/views/usuarios/):
+   - index.blade.php: Listado, badges de estado y bloqueo activo, acciones rapidas por fila y formulario modal reactivo en Alpine.js.
+   - show.blade.php: Ficha de usuario con datos personales y diagnostico del estado de su cuenta.
+
+4. Rutas (routes/web.php):
+   - Rutas protegidas bajo el grupo con middlewares de seguridad y prefijo /usuarios (usuarios.listar, usuarios.guardar, usuarios.modificar, usuarios.eliminar, usuarios.habilitar, usuarios.asignarRol, usuarios.restablecer, usuarios.mostrar).
+
+
+
 

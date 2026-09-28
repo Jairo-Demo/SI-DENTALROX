@@ -11,7 +11,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->alias([
+            'rol' => \App\Http\Middleware\VerificarRol::class,
+            'cuenta.activa' => \App\Http\Middleware\VerificarCuentaActiva::class,
+            'cambio.contrasena' => \App\Http\Middleware\ExigirCambioContrasena::class,
+            'inactividad' => \App\Http\Middleware\ControlarInactividad::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
