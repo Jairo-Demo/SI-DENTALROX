@@ -103,3 +103,33 @@ Se implementa el modulo completo del Catalogo de Especialidades (Paquete 2) con 
 
 4. Rutas (routes/web.php):
    - GET /especialidades, POST /especialidades, POST /especialidades/update, POST /especialidades/delete, GET /especialidades/{id}.
+
+
+=== PASO 8: Modulo de Gestion de Pacientes y Apertura de Historia Clinica ===
+
+TITULO COMMIT:
+Implementacion del modulo de gestion de pacientes con apertura automatica de historia clinica y bitacora
+
+EXPLICACION:
+Se implementa el modulo integral de Gestion y Busqueda de Pacientes (Paquete 3 - CU08 y CU09) siguiendo la metodologia MVC con verbos GET y POST:
+
+1. Controlador (app/Http/Controllers/PacienteController.php):
+   - index(): Busqueda agrupada por CI, nombres y apellidos con paginacion y conservacion de query string.
+   - store(): Registro transaccional de Paciente (estado activo, fecha de registro) y apertura automatica de su HistoriaClinica. Registro en bitacora.
+   - update(): Modificacion validando unicidad de CI y restriccion de fecha de nacimiento respecto a fecha de registro. Registro en bitacora.
+   - delete(): Inhabilitacion suave (estado inactivo) preservando la historia clinica y registros asociados. Registro en bitacora.
+   - activar(): Habilitacion de pacientes inactivos. Registro en bitacora.
+   - show(): Ficha clinica del paciente con calculo dinamico de edad y datos de historia clinica.
+
+2. Vistas Blade (resources/views/pacientes/):
+   - index.blade.php: Buscador en tiempo real, tabla con badges de estado, acciones (Modificar / Inhabilitar / Habilitar) y formulario dinamico en Alpine.js.
+   - show.blade.php: Ficha detallada con datos personales, datos de historia clinica y botones de accion.
+
+3. Rutas (routes/web.php):
+   - GET /pacientes (pacientes.listar)
+   - POST /pacientes (pacientes.guardar)
+   - POST /pacientes/update (pacientes.modificar)
+   - POST /pacientes/delete (pacientes.eliminar)
+   - POST /pacientes/activar (pacientes.habilitar)
+   - GET /pacientes/{id} (pacientes.mostrar)
+

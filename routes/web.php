@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EspecialidadController;
+use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\PaqueteController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,16 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update', 'update')->name('especialidades.modificar');
         Route::post('/delete', 'delete')->name('especialidades.eliminar');
         Route::get('/{id}', 'show')->whereNumber('id')->name('especialidades.mostrar');
+    });
+
+    // Módulo: Gestión de Pacientes (Paquete 3)
+    Route::prefix('pacientes')->controller(PacienteController::class)->group(function () {
+        Route::get('/', 'index')->name('pacientes.listar');
+        Route::post('/', 'store')->name('pacientes.guardar');
+        Route::post('/update', 'update')->name('pacientes.modificar');
+        Route::post('/delete', 'delete')->name('pacientes.eliminar');
+        Route::post('/activar', 'activar')->name('pacientes.habilitar');
+        Route::get('/{id}', 'show')->whereNumber('id')->name('pacientes.mostrar');
     });
 
 });
