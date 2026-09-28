@@ -77,3 +77,29 @@ Se implementa la navegacion jerarquica donde el dashboard muestra los paquetes h
    - resources/views/dashboard.blade.php: Grilla horizontal de tarjetas interactivas de los 5 paquetes.
    - resources/views/paquetes/show.blade.php: Vista individual de cada paquete con sus sub-modulos, badges y boton de retorno.
    - resources/views/layouts/navigation.blade.php: Barra superior con paquetes alineados horizontalmente.
+
+
+=== PASO 7: Modulo CRUD de Especialidades Odontologicas y Auditoria ===
+
+TITULO COMMIT:
+Implementacion del modulo CRUD de especialidades con validacion de integridad y bitacora
+
+EXPLICACION:
+Se implementa el modulo completo del Catalogo de Especialidades (Paquete 2) con el estandar de verbos GET y POST con ID oculto:
+
+1. Controlador (app/Http/Controllers/EspecialidadController.php):
+   - index(): Listado con conteo de odontologos asignados y orden alfabetico.
+   - show(): Ficha de detalle de la especialidad y lista de profesionales vinculados.
+   - store(): Registro de nueva especialidad con validacion de nombre unico y registro en bitacora.
+   - update(): Modificacion de especialidad con validacion de ID oculto y unicidad ignorando el ID actual.
+   - delete(): Eliminacion segura con validacion de integridad referencial (impide borrar si tiene usuarios u tratamientos asignados).
+
+2. Auditoria (app/Services/BitacoraService.php):
+   - Registro automatico de eventos CREAR_ESPECIALIDAD, MODIFICAR_ESPECIALIDAD y ELIMINAR_ESPECIALIDAD.
+
+3. Vistas (resources/views/especialidades/):
+   - index.blade.php: Listado tabular, badges, modales/formulario dinamico en Alpine.js y alertas.
+   - show.blade.php: Ficha informativa y relacion de odontologos.
+
+4. Rutas (routes/web.php):
+   - GET /especialidades, POST /especialidades, POST /especialidades/update, POST /especialidades/delete, GET /especialidades/{id}.

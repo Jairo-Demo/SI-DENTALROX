@@ -1,9 +1,4 @@
-/* ==========================================================================
-   HOJA DE ESTILOS: LOGIN (DentalRox)
-   Arquitectura: CSS desacoplado en public/css/login.css
-   ========================================================================== */
-
-/* 1. RESET Y CONFIGURACION BASE */
+/* 1. Selectores Base (Etiquetas) */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -11,62 +6,41 @@
 }
 
 body {
-    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-    background: linear-gradient(135deg, #eef2ff 0%, #f0fdfa 100%);
-    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f3f4f6;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1.5rem;
-    color: #1e293b;
+    height: 100vh;
+    color: #374151;
 }
 
-/* 2. CONTENEDOR PRINCIPAL / TARJETA DE ACCESO */
+/* 2. Clases para Componentes (.clase) */
 .login-container {
     background-color: #ffffff;
     width: 100%;
-    max-width: 420px;
+    max-width: 400px;
     padding: 2.5rem 2rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 3. ENCABEZADO DE LA TARJETA (Logo / Titulo) */
 .login-header {
     text-align: center;
     margin-bottom: 2rem;
 }
 
-.login-header .logo-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 54px;
-    height: 54px;
-    background-color: #0284c7;
-    color: #ffffff;
-    font-size: 1.5rem;
-    font-weight: 700;
-    border-radius: 50%;
-    margin-bottom: 0.75rem;
-    box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.3);
-}
-
 .login-header h2 {
-    color: #0369a1;
-    font-size: 1.75rem;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    margin-bottom: 0.25rem;
+    color: #4f46e5;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 .login-header p {
-    color: #64748b;
-    font-size: 0.9rem;
+    color: #6b7280;
+    font-size: 0.95rem;
 }
 
-/* 4. FORMULARIO Y CAMPOS DE ENTRADA */
 .login-form {
     display: flex;
     flex-direction: column;
@@ -76,80 +50,68 @@ body {
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
 }
 
 .form-group label {
-    font-size: 0.875rem;
     font-weight: 600;
-    color: #334155;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
 }
 
 .form-group input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1.5px solid #cbd5e1;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    color: #0f172a;
-    background-color: #f8fafc;
-    transition: all 0.2s ease-in-out;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
 }
 
 .form-group input:focus {
     outline: none;
-    border-color: #0284c7;
-    background-color: #ffffff;
-    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
 }
 
-/* 5. BOTON DE ENVIO (Acceso) */
 .btn-submit {
-    background-color: #0284c7;
+    background-color: #4f46e5;
     color: #ffffff;
     border: none;
-    padding: 0.85rem;
-    border-radius: 8px;
+    padding: 0.8rem;
+    border-radius: 4px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    transition: background-color 0.3s;
     margin-top: 0.5rem;
 }
 
 .btn-submit:hover {
-    background-color: #0369a1;
+    background-color: #4338ca;
 }
 
-.btn-submit:active {
-    transform: scale(0.99);
-}
-
-/* 6. ALERTAS Y MENSAJES DE ESTADO */
 .alert {
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    margin-bottom: 1.25rem;
-    font-size: 0.875rem;
-    line-height: 1.4;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 .alert-error {
-    background-color: #fef2f2;
+    background-color: #fee2e2;
     color: #b91c1c;
-    border: 1px solid #fecaca;
+    border: 1px solid #f87171;
 }
 
 .alert-success {
-    background-color: #f0fdf4;
-    color: #15803d;
-    border: 1px solid #bbf7d0;
+    background-color: #d1fae5;
+    color: #047857;
+    border: 1px solid #34d399;
 }
 
-/* 7. TEXTO DE SOPORTE */
 .help-text {
     text-align: center;
-    font-size: 0.8rem;
-    color: #94a3b8;
+    font-size: 0.85rem;
+    color: #6b7280;
     margin-top: 1.5rem;
 }
