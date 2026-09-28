@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\EspecialidadController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\PaqueteController;
@@ -28,6 +29,12 @@ Route::middleware(['auth'])->group(function () {
 
     // Vista detallada de cada Paquete al hacer clic (P1..P5)
     Route::get('/paquetes/{codigo}', [PaqueteController::class, 'show'])->name('paquetes.mostrar');
+
+    // Módulo: Bitácora del Sistema (Paquete 1 - Auditoría)
+    Route::prefix('bitacora')->controller(BitacoraController::class)->group(function () {
+        Route::get('/', 'index')->name('bitacora.listar');
+        Route::get('/{id}', 'show')->whereNumber('id')->name('bitacora.mostrar');
+    });
 
     // Módulo: Catálogo de Especialidades (Paquete 2)
     Route::prefix('especialidades')->controller(EspecialidadController::class)->group(function () {

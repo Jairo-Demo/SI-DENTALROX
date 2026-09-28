@@ -133,3 +133,25 @@ Se implementa el modulo integral de Gestion y Busqueda de Pacientes (Paquete 3 -
    - POST /pacientes/activar (pacientes.habilitar)
    - GET /pacientes/{id} (pacientes.mostrar)
 
+
+=== PASO 9: Modulo de Bitacora del Sistema y Auditoria de Eventos ===
+
+TITULO COMMIT:
+Implementacion del modulo de bitacora del sistema con filtros avanzados y detalle de eventos
+
+EXPLICACION:
+Se implementa el modulo de consulta y auditoria de Bitacora del Sistema (Paquete 1 - CU07) con politica de solo lectura (RN-02) e inmutabilidad de registros:
+
+1. Controlador (app/Http/Controllers/BitacoraController.php):
+   - index(): Consulta paginada con filtros combinados (fecha desde/hasta, usuario, accion, direccion IP) ordenados de forma descendente cronologica.
+   - show(): Ficha de detalle de un registro de auditoria especifico mostrando datos completos del evento y usuario involucrado.
+
+2. Vistas Blade (resources/views/bitacora/):
+   - index.blade.php: Formulario de filtros responsivo, tabla con visualizacion de usuario, accion monospaciada, tabla afectada, ID, fecha, hora e IP, y enlaces de paginacion con persistencia de filtros.
+   - show.blade.php: Ficha de detalle completa del evento auditado con boton de retorno a la lista.
+
+3. Rutas (routes/web.php):
+   - GET /bitacora (bitacora.listar)
+   - GET /bitacora/{id} (bitacora.mostrar)
+
+
