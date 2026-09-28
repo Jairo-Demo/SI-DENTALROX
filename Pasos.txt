@@ -56,3 +56,24 @@ Se implementa el flujo MVC completo para el inicio y cierre de sesion con separa
 
 3. Rutas (routes/auth.php y routes/web.php):
    - GET /login, POST /login, POST /logout y redireccion de raiz al login.
+
+
+=== PASO 6: Navegacion Modular por Paquetes y Vistas Jerarquicas ===
+
+TITULO COMMIT:
+Implementacion de navegacion modular por paquetes y vista dedicada de submodulos
+
+EXPLICACION:
+Se implementa la navegacion jerarquica donde el dashboard muestra los paquetes horizontales limpios y al hacer clic se accede a su vista dedicada:
+
+1. Servicio de Paquetes (app/Services/MenuService.php):
+   - Definicion centralizada de los 5 paquetes con iconos, titulos, descripciones y opciones filtradas por rol.
+   - Metodo MenuService::buscar() para consultar un paquete por su codigo (P1..P5).
+
+2. Controlador y Rutas (app/Http/Controllers/PaqueteController.php y routes/web.php):
+   - Ruta GET /paquetes/{codigo} conectada a PaqueteController@show con proteccion de autenticacion y control 404.
+
+3. Vistas Blade (resources/views/):
+   - resources/views/dashboard.blade.php: Grilla horizontal de tarjetas interactivas de los 5 paquetes.
+   - resources/views/paquetes/show.blade.php: Vista individual de cada paquete con sus sub-modulos, badges y boton de retorno.
+   - resources/views/layouts/navigation.blade.php: Barra superior con paquetes alineados horizontalmente.
