@@ -20,7 +20,7 @@
         </div>
     </x-slot>
 
-    <div class="py-12"
+    <div class="py-6 sm:py-12"
          x-data="{
             abierto: {{ Js::from($volvioFormulario) }},
             form: {{ Js::from($formularioInicial) }},
@@ -37,7 +37,7 @@
                 this.$nextTick(() => this.$refs.formulario.scrollIntoView({ behavior: 'smooth' }));
             },
          }">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             
             <!-- Alerta de Éxito -->
             @if (session('exito'))
@@ -59,40 +59,40 @@
 
             <!-- Tarjeta Principal: Tabla de Especialidades -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border border-gray-100 dark:border-gray-700">
-                <div class="p-6 text-gray-900 dark:text-gray-100 space-y-4">
+                <div class="p-4 sm:p-6 text-gray-900 dark:text-gray-100 space-y-4">
                     
-                    <div class="flex justify-between items-center">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                         <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">Listado de especialidades registradas para asignación de odontólogos.</p>
-                        <x-primary-button type="button" @click="nuevo()">
+                        <x-primary-button type="button" @click="nuevo()" class="self-start sm:self-auto">
                             + Nueva Especialidad
                         </x-primary-button>
                     </div>
 
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
                             <thead>
                                 <tr class="text-left text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700/50">
-                                    <th class="px-4 py-3">Nombre</th>
-                                    <th class="px-4 py-3">Descripción</th>
-                                    <th class="px-4 py-3 text-center">Odontólogos</th>
-                                    <th class="px-4 py-3 text-center">Acciones</th>
+                                    <th class="px-4 py-3 whitespace-nowrap">Nombre</th>
+                                    <th class="px-4 py-3 whitespace-nowrap">Descripción</th>
+                                    <th class="px-4 py-3 text-center whitespace-nowrap">Odontólogos</th>
+                                    <th class="px-4 py-3 text-center whitespace-nowrap">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                                 @forelse ($especialidades as $especialidad)
                                     <tr class="align-top hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition text-gray-900 dark:text-gray-100">
-                                        <td class="px-4 py-3">
+                                        <td class="px-4 py-3 whitespace-nowrap">
                                             <a href="{{ route('especialidades.mostrar', $especialidad->id) }}" class="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
                                                 {{ $especialidad->nombre }}
                                             </a>
                                         </td>
                                         <td class="px-4 py-3 text-gray-700 dark:text-gray-300">{{ $especialidad->descripcion ?? '—' }}</td>
-                                        <td class="px-4 py-3 text-center font-medium">
+                                        <td class="px-4 py-3 text-center font-medium whitespace-nowrap">
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600">
                                                 {{ $especialidad->usuarios_count }}
                                             </span>
                                         </td>
-                                        <td class="px-4 py-3 text-center">
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">
                                             <div class="flex items-center justify-center gap-2">
                                                 <x-secondary-button @click="editar({{ Js::from($especialidad->only(['id', 'nombre', 'descripcion'])) }})">
                                                     Modificar

@@ -31,7 +31,7 @@
 
     {{-- nuevo(): formulario vacío para registrar (CU04 paso 3).
          editar(): formulario con los datos del usuario elegido para modificar. --}}
-    <div class="py-12"
+    <div class="py-6 sm:py-12"
          x-data="{
             abierto: {{ Js::from($volvioFormulario) }},
             form: {{ Js::from($formularioInicial) }},
@@ -49,7 +49,7 @@
                 this.$nextTick(() => this.$refs.formulario.scrollIntoView({ behavior: 'smooth' }));
             },
          }">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             @if (session('exito'))
                 <div class="rounded-md bg-green-50 dark:bg-green-900/30 p-4 text-sm font-medium text-green-800 dark:text-green-200">
                     {{ session('exito') }}
@@ -80,7 +80,7 @@
             @endif
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100 space-y-4">
+                <div class="p-4 sm:p-6 text-gray-900 dark:text-gray-100 space-y-4">
                     {{-- CU04 paso 2: buscador y botón de registro --}}
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <form method="GET" action="{{ route('usuarios.listar') }}" class="flex gap-2 w-full sm:max-w-md">
@@ -92,40 +92,40 @@
                             @endif
                         </form>
 
-                        <x-primary-button type="button" @click="nuevo()">Nuevo usuario</x-primary-button>
+                        <x-primary-button type="button" @click="nuevo()" class="self-start sm:self-auto">+ Nuevo usuario</x-primary-button>
                     </div>
 
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
                             <thead>
                                 <tr class="text-left text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700/50">
-                                    <th class="px-3 py-2.5">Nombre</th>
-                                    <th class="px-3 py-2.5">Usuario</th>
-                                    <th class="px-3 py-2.5">Rol</th>
-                                    <th class="px-3 py-2.5">Estado</th>
-                                    <th class="px-3 py-2.5">Bloqueo</th>
-                                    <th class="px-3 py-2.5">Acciones</th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap">Nombre</th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap">Usuario</th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap">Rol</th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap">Estado</th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap">Bloqueo</th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                                 @forelse ($usuarios as $u)
                                     <tr class="align-top text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                                        <td class="px-3 py-3">
+                                        <td class="px-3.5 py-3 whitespace-nowrap">
                                             <a href="{{ route('usuarios.mostrar', $u->id) }}" class="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
                                                 {{ $u->apellidos }}, {{ $u->nombres }}
                                             </a>
                                             <div class="text-xs text-gray-600 dark:text-gray-300 font-medium">{{ $u->especialidad?->nombre }}</div>
                                         </td>
-                                        <td class="px-3 py-3 font-medium text-gray-900 dark:text-gray-100">{{ $u->usuario }}</td>
-                                        <td class="px-3 py-3 text-gray-800 dark:text-gray-200">{{ $u->rol === 'administrador' ? 'Administrador' : 'Odontólogo' }}</td>
-                                        <td class="px-3 py-3">
+                                        <td class="px-3.5 py-3 whitespace-nowrap font-medium text-gray-900 dark:text-gray-100">{{ $u->usuario }}</td>
+                                        <td class="px-3.5 py-3 whitespace-nowrap text-gray-800 dark:text-gray-200">{{ $u->rol === 'administrador' ? 'Administrador' : 'Odontólogo' }}</td>
+                                        <td class="px-3.5 py-3 whitespace-nowrap">
                                             @if ($u->estado === 'activo')
                                                 <span class="inline-flex rounded-full bg-green-100 dark:bg-green-900/60 px-2.5 py-0.5 text-xs font-semibold text-green-800 dark:text-green-200 border border-green-300 dark:border-green-700">Activo</span>
                                             @else
                                                 <span class="inline-flex rounded-full bg-gray-200 dark:bg-gray-700 px-2.5 py-0.5 text-xs font-semibold text-gray-800 dark:text-gray-200 border border-gray-400 dark:border-gray-600">Inactivo</span>
                                             @endif
                                         </td>
-                                        <td class="px-3 py-3">
+                                        <td class="px-3.5 py-3 whitespace-nowrap">
                                             @if ($u->estaBloqueado())
                                                 <span class="inline-flex rounded-full bg-red-100 dark:bg-red-900/60 px-2.5 py-0.5 text-xs font-semibold text-red-800 dark:text-red-200 border border-red-300 dark:border-red-700">
                                                     Bloqueado ({{ $u->minutosBloqueoRestantes() }} min)
@@ -134,8 +134,8 @@
                                                 <span class="text-gray-400 dark:text-gray-400 font-bold">—</span>
                                             @endif
                                         </td>
-                                        <td class="px-3 py-3">
-                                            <div class="flex flex-wrap items-center gap-2">
+                                        <td class="px-3.5 py-3 whitespace-nowrap">
+                                            <div class="flex items-center gap-2">
                                                 {{-- CU04: modificar (carga los datos en el formulario) --}}
                                                 <x-secondary-button
                                                     @click="editar({{ Js::from($u->only(['id', 'nombres', 'apellidos', 'ci', 'matricula_profesional', 'especialidad_id', 'correo', 'telefono', 'usuario'])) }})">

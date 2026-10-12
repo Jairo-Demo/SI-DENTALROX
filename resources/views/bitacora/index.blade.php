@@ -10,8 +10,8 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="py-6 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             @if ($errors->any())
                 <div class="rounded-md bg-red-50 dark:bg-red-900/30 p-4 text-sm font-medium text-red-800 dark:text-red-200">
                     <ul class="space-y-1">
@@ -62,7 +62,7 @@
                         <x-text-input id="ip" name="ip" type="text" class="mt-1 block w-full" :value="request('ip')" maxlength="45" />
                     </div>
 
-                    <div class="sm:col-span-2 lg:col-span-5 flex items-center gap-4">
+                    <div class="col-span-1 sm:col-span-2 lg:col-span-5 flex flex-wrap items-center gap-4 pt-1">
                         <x-primary-button>Filtrar</x-primary-button>
                         <a href="{{ route('bitacora.listar') }}" class="text-sm text-gray-600 dark:text-gray-400 underline">Limpiar filtros</a>
                     </div>
@@ -71,29 +71,29 @@
 
             {{-- CU07 pasos 4 y 5: resultados --}}
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100 space-y-4">
+                <div class="p-4 sm:p-6 text-gray-900 dark:text-gray-100 space-y-4">
                     <p class="text-sm text-gray-600 dark:text-gray-400">
                         {{ $registros->total() }} registro(s) encontrado(s).
                     </p>
 
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
                             <thead>
                                 <tr class="text-left text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700/50">
-                                    <th class="px-3 py-2.5">Usuario</th>
-                                    <th class="px-3 py-2.5">Acción</th>
-                                    <th class="px-3 py-2.5">Tabla</th>
-                                    <th class="px-3 py-2.5">Registro</th>
-                                    <th class="px-3 py-2.5">Fecha</th>
-                                    <th class="px-3 py-2.5">Hora</th>
-                                    <th class="px-3 py-2.5">IP</th>
-                                    <th class="px-3 py-2.5"></th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap">Usuario</th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap">Acción</th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap">Tabla</th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap">Registro</th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap">Fecha</th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap">Hora</th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap">IP</th>
+                                    <th class="px-3.5 py-3 whitespace-nowrap"></th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                                 @forelse ($registros as $registro)
                                     <tr class="text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                                        <td class="px-3 py-2.5 font-medium">
+                                        <td class="px-3.5 py-3 font-medium whitespace-nowrap">
                                             @if ($registro->usuario)
                                                 {{ $registro->usuario->usuario }}
                                             @elseif ($registro->usuario_digitado)
@@ -102,13 +102,13 @@
                                                 <span class="text-gray-400 dark:text-gray-500">—</span>
                                             @endif
                                         </td>
-                                        <td class="px-3 py-2.5 font-mono text-xs font-semibold text-indigo-700 dark:text-indigo-300">{{ $registro->accion }}</td>
-                                        <td class="px-3 py-2.5 text-gray-800 dark:text-gray-200">{{ $registro->tabla_afectada ?? '—' }}</td>
-                                        <td class="px-3 py-2.5 text-gray-800 dark:text-gray-200">{{ $registro->registro_id ?? '—' }}</td>
-                                        <td class="px-3 py-2.5 whitespace-nowrap text-gray-800 dark:text-gray-200">{{ $registro->fecha_hora->format('d/m/Y') }}</td>
-                                        <td class="px-3 py-2.5 whitespace-nowrap text-gray-800 dark:text-gray-200">{{ $registro->fecha_hora->format('H:i:s') }}</td>
-                                        <td class="px-3 py-2.5 text-gray-700 dark:text-gray-300">{{ $registro->ip }}</td>
-                                        <td class="px-3 py-2.5">
+                                        <td class="px-3.5 py-3 font-mono text-xs font-semibold text-indigo-700 dark:text-indigo-300 whitespace-nowrap">{{ $registro->accion }}</td>
+                                        <td class="px-3.5 py-3 text-gray-800 dark:text-gray-200 whitespace-nowrap">{{ $registro->tabla_afectada ?? '—' }}</td>
+                                        <td class="px-3.5 py-3 text-gray-800 dark:text-gray-200 whitespace-nowrap">{{ $registro->registro_id ?? '—' }}</td>
+                                        <td class="px-3.5 py-3 whitespace-nowrap text-gray-800 dark:text-gray-200">{{ $registro->fecha_hora->format('d/m/Y') }}</td>
+                                        <td class="px-3.5 py-3 whitespace-nowrap text-gray-800 dark:text-gray-200">{{ $registro->fecha_hora->format('H:i:s') }}</td>
+                                        <td class="px-3.5 py-3 text-gray-700 dark:text-gray-300 whitespace-nowrap">{{ $registro->ip }}</td>
+                                        <td class="px-3.5 py-3 whitespace-nowrap text-right">
                                             <a href="{{ route('bitacora.mostrar', $registro->id) }}" class="font-semibold text-blue-600 dark:text-blue-400 hover:underline">Ver</a>
                                         </td>
                                     </tr>
