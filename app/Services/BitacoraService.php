@@ -41,6 +41,18 @@ class BitacoraService
     public const INHABILITAR_PACIENTE = 'INHABILITAR_PACIENTE';
     public const ACTIVAR_PACIENTE = 'ACTIVAR_PACIENTE';
 
+    // Acciones de Tratamientos (CU15)
+    public const CREAR_TRATAMIENTO = 'CREAR_TRATAMIENTO';
+    public const MODIFICAR_TRATAMIENTO = 'MODIFICAR_TRATAMIENTO';
+    public const DESACTIVAR_TRATAMIENTO = 'DESACTIVAR_TRATAMIENTO';
+    public const ACTIVAR_TRATAMIENTO = 'ACTIVAR_TRATAMIENTO';
+
+    // Acciones de Citas y Agenda (CU10, CU11, CU12)
+    public const PROGRAMAR_CITA = 'PROGRAMAR_CITA';
+    public const REPROGRAMAR_CITA = 'REPROGRAMAR_CITA';
+    public const CANCELAR_CITA = 'CANCELAR_CITA';
+    public const ACTUALIZAR_ESTADO_CITA = 'ACTUALIZAR_ESTADO_CITA';
+
     /**
      * Retorna la lista de todas las constantes de acción.
      *

@@ -236,3 +236,56 @@ Se optimiza toda la interfaz grafica del sistema DentalRox para garantizar adapt
 
 4. Compilacion y Construccion de Activos:
    - Compilacion de clases CSS y JavaScript optimizadas con Vite (npm run build).
+
+
+
+=== PASO 13: Implementacion del Modulo de Tratamientos, Citas y Agenda del Sillon Unico (Ciclo 2) ===
+
+TITULO COMMIT:
+Implementacion del modulo de Tratamientos, Citas y Agenda del Sillon Unico (Ciclo 2)
+
+EXPLICACION:
+Se implementa de forma completa y robusta el Ciclo #2 (Sprint 2) para DentalRox, cubriendo los 5 casos de uso de la especificacion tecnica oficial bajo arquitectura MVC pura, enlaces POST con IDs ocultos y diseno 100% Web Responsive:
+
+1. Modelos Eloquent y Relaciones (app/Models/):
+   - Tratamiento: Catalogo clinico con duracion estimada (minutos), costo, especialidad vinculada y control de estado (activo/inactivo - RNF-06).
+   - EstadoCita: Maestro de estados ('programada', 'atendida', 'cancelada', 'no_asistida') con constantes de negocio.
+   - Cita: Entidad central del sillon unico, con relaciones a Paciente, Odontologo (User) y EstadoCita. Metodos de casteo, calculo y formateo de horas.
+   - User y Paciente: Relaciones hasMany(Cita::class) y metodos auxiliares nombreCompleto().
+
+2. Poblamiento de Datos (database/seeders/):
+   - EstadoCitaSeeder: Registro de los 4 estados oficiales del flujo clinico.
+   - TratamientoSeeder: Catalogo inicial con 7 tratamientos dentales reales (Limpieza, Restauracion con Resina, Endodoncia, Extraccion Simple, Blanqueamiento, Periodoncia, Corona Porcelana) con costos y duraciones estimadas asignadas a especialidades.
+   - DatabaseSeeder: Integracion de los seeders al flujo general de migracion.
+
+3. Bitacora y Auditoria (app/Services/BitacoraService.php):
+   - Registro de constantes de auditoria: CREAR_TRATAMIENTO, MODIFICAR_TRATAMIENTO, DESACTIVAR_TRATAMIENTO, ACTIVAR_TRATAMIENTO, PROGRAMAR_CITA, REPROGRAMAR_CITA, CANCELAR_CITA, ACTUALIZAR_ESTADO_CITA.
+
+4. Controladores y Reglas de Negocio (app/Http/Controllers/):
+   - TratamientoController (CU15):
+     * Listado con filtros por estado y busqueda textual.
+     * Alta con duracion_minutos mayor a 0 y costo >= 0.
+     * Modificacion de tratamientos.
+     * Baja logica (inhabilitacion) preservando trazabilidad clinica (RNF-06).
+     * Reactivacion de tratamientos inactivos.
+   - CitaController (CU10, CU11, CU12):
+     * CU10 (Programar Cita): Validacion de duracion sugerida (RN-08) y calculo automatico de hora_fin (RN-09). Validacion estricta de exclusion mutua del Sillon Unico (RN-07): ninguna cita puede solaparse en horario sobre la misma fecha. Deteccion automatica y sugerencia de franjas horarias libres inmediatas si ocurre colision (A2.2).
+     * CU11 (Reprogramar o Cancelar Cita): La reprogramacion cancela la cita original con motivo 'Reprogramada', registra la justificacion y crea una nueva cita (RF-70). La cancelacion libera inmediatamente el sillon para esa franja horaria.
+     * CU12 (Actualizar Estado de Cita): Transicion a 'atendida' o 'no asistida' restringida exclusivamente a partir de la fecha de la cita (RF-71).
+   - AgendaController (CU13):
+     * Consulta visual de la agenda del Sillon Unico (RF-72).
+     * Modalidad Diaria: Linea temporal continua de 08:00 a 20:00 con desglose visual de franjas libres (con boton de reserva directa) y franjas ocupadas con datos de paciente, odontologo y estado.
+     * Modalidad Semanal: Matriz por dias de la semana para planificacion general del consultorio.
+     * Filtros interactivos por fecha y odontologo.
+
+5. Vistas Blade 100% Responsivas y Accesibles (resources/views/):
+   - tratamientos/index.blade.php: Catalogo responsivo, badges de duracion/costo, modal Alpine.js y filtros.
+   - tratamientos/show.blade.php: Ficha clinica del tratamiento.
+   - citas/create.blade.php: Formulario interactivo con reactividad Alpine.js para autocompletar duracion sugerida segun tratamiento (RN-08), calculo dinamico de hora fin (RN-09), panel de advertencia ante colisiones con selector rapido de horarios libres (A2.2).
+   - citas/show.blade.php: Ficha de detalle de la cita con modales interactivos para Reprogramar (CU11), Cancelar (CU11) y Actualizar Estado (CU12).
+   - agenda/index.blade.php: Cronograma horario adaptativo para movil y PC, con diferenciacion cromatica de estados y boton directo para agendar en huecos libres.
+   - pacientes/show.blade.php: Integracion del historial de citas del paciente y boton de accion rapida 'Programar cita'.
+
+6. Rutas y Menu de Navegacion:
+   - routes/web.php: Grupo de rutas con metodos GET y POST puros para tratamientos, citas y agenda.
+   - app/Services/MenuService.php: Enlace de Tratamientos en Paquete 2 y Agenda / Programar Cita en Paquete 3.

@@ -109,4 +109,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Bitacora::class, 'usuario_id');
     }
+
+    /**
+     * Nombre completo del usuario / profesional.
+     */
+    public function nombreCompleto(): string
+    {
+        return "{$this->nombres} {$this->apellidos}";
+    }
+
+    /**
+     * Citas asignadas a este profesional (odontólogo).
+     */
+    public function citas(): HasMany
+    {
+        return $this->hasMany(Cita::class, 'odontologo_id');
+    }
 }

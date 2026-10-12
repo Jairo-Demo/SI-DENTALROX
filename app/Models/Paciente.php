@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Paciente extends Model
@@ -71,5 +72,13 @@ class Paciente extends Model
     public function historiaClinica(): HasOne
     {
         return $this->hasOne(HistoriaClinica::class, 'paciente_id');
+    }
+
+    /**
+     * Citas programadas o históricas del paciente.
+     */
+    public function citas(): HasMany
+    {
+        return $this->hasMany(Cita::class, 'paciente_id')->orderBy('fecha', 'desc')->orderBy('hora_inicio', 'desc');
     }
 }

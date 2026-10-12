@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             EspecialidadSeeder::class,
             UserSeeder::class,
+            EstadoCitaSeeder::class,
+            TratamientoSeeder::class,
         ]);
     }
 }

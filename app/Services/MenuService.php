@@ -77,7 +77,7 @@ class MenuService
                 'descripcion' => 'Administración de catálogos base: especialidades, tratamientos, tarifas, diagnósticos y materiales.',
                 'opciones' => [
                     self::opcion('Especialidades Odontológicas', 'especialidades.listar', 'especialidades.*', 'Catálogo de ramas de especialidad dental.', true),
-                    self::opcion('Catálogo de Tratamientos', null, null, 'Servicios odontológicos disponibles.', true),
+                    self::opcion('Catálogo de Tratamientos', 'tratamientos.listar', 'tratamientos.*', 'Servicios odontológicos disponibles.', true),
                     self::opcion('Tarifas y Aranceles', null, null, 'Precios y costos de los procedimientos.', true),
                     self::opcion('Diagnósticos Clínicos', null, null, 'Catálogo de diagnósticos y afecciones.', true),
                     self::opcion('Materiales e Insumos', null, null, 'Insumos dentales utilizados en tratamientos.', true),
@@ -91,8 +91,8 @@ class MenuService
                 'descripcion' => 'Registro de pacientes, datos de contacto, agenda de citas y asignación horaria.',
                 'opciones' => [
                     self::opcion('Gestión de Pacientes', 'pacientes.listar', 'pacientes.*', 'Registro clínico, datos personales y búsqueda de pacientes.'),
-                    self::opcion('Programación de Citas', null, null, 'Agendamiento y control de estado de citas médicas.'),
-                    self::opcion('Agenda del Día', null, null, 'Visualización de citas programadas por horario y odontólogo.'),
+                    self::opcion('Programación de Citas', 'citas.crear', 'citas.*', 'Agendamiento y control de estado de citas médicas.'),
+                    self::opcion('Agenda del Día', 'agenda.index', 'agenda.*', 'Visualización de citas programadas por horario y odontólogo.'),
                 ],
             ],
             [

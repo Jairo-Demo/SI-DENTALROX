@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\BitacoraController;
+use App\Http\Controllers\CitaController;
 use App\Http\Controllers\EspecialidadController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\PaqueteController;
+use App\Http\Controllers\TratamientoController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -70,6 +73,30 @@ Route::middleware(['auth', 'cuenta.activa', 'inactividad', 'cambio.contrasena'])
         Route::post('/activar', 'activar')->name('pacientes.habilitar');
         Route::get('/{id}', 'show')->whereNumber('id')->name('pacientes.mostrar');
     });
+
+    // CU15 Gestionar catálogo de tratamientos (Paquete 2 - Solo Administrador)
+    Route::prefix('tratamientos')->middleware('rol:administrador')
+        ->controller(TratamientoController::class)->group(function () {
+            Route::get('/', 'index')->name('tratamientos.listar');
+            Route::post('/', 'store')->name('tratamientos.guardar');
+            Route::post('/update', 'update')->name('tratamientos.modificar');
+            Route::post('/delete', 'delete')->name('tratamientos.eliminar');
+            Route::post('/activar', 'activar')->name('tratamientos.habilitar');
+            Route::get('/{id}', 'show')->whereNumber('id')->name('tratamientos.mostrar');
+        });
+
+    // CU10 Programar cita, CU11 Reprogramar o cancelar cita, CU12 Actualizar estado (Paquete 3 - Ambos roles)
+    Route::prefix('citas')->controller(CitaController::class)->group(function () {
+        Route::get('/crear', 'create')->name('citas.crear');
+        Route::post('/', 'store')->name('citas.guardar');
+        Route::get('/{id}', 'show')->whereNumber('id')->name('citas.mostrar');
+        Route::post('/reprogramar', 'reprogramar')->name('citas.reprogramar');
+        Route::post('/cancelar', 'cancelar')->name('citas.cancelar');
+        Route::post('/estado', 'actualizarEstado')->name('citas.actualizarEstado');
+    });
+
+    // CU13 Consultar agenda del sillón único (Paquete 3 - Ambos roles)
+    Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda.index');
 
 });
 

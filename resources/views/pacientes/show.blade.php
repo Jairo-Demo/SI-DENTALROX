@@ -106,10 +106,105 @@
                 @endif
             </div>
 
+            {{-- Historial de citas en el sillón dental --}}
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Citas en el sillón dental</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Historial y próximas citas programadas para este paciente.</p>
+                    </div>
+                    @if ($paciente->estado === 'activo')
+                        <a href="{{ route('citas.crear', ['paciente_id' => $paciente->id]) }}"
+                           class="inline-flex items-center justify-center px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-md shadow-sm transition">
+                            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                            Programar cita
+                        </a>
+                    @endif
+                </div>
+
+                @if ($paciente->citas->isNotEmpty())
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                            <thead>
+                                <tr class="text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                    <th class="py-2.5 px-3">Fecha</th>
+                                    <th class="py-2.5 px-3">Horario</th>
+                                    <th class="py-2.5 px-3">Odontólogo</th>
+                                    <th class="py-2.5 px-3">Motivo / Tratamiento</th>
+                                    <th class="py-2.5 px-3">Estado</th>
+                                    <th class="py-2.5 px-3 text-right">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                @foreach ($paciente->citas as $cita)
+                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-750">
+                                        <td class="py-2.5 px-3 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap">
+                                            {{ $cita->fecha->format('d/m/Y') }}
+                                        </td>
+                                        <td class="py-2.5 px-3 text-gray-600 dark:text-gray-300 whitespace-nowrap font-mono text-xs">
+                                            {{ $cita->horaInicioFormato() }} - {{ $cita->horaFinFormato() }}
+                                            <span class="text-gray-400">({{ $cita->duracion_minutos }}m)</span>
+                                        </td>
+                                        <td class="py-2.5 px-3 text-gray-700 dark:text-gray-300">
+                                            {{ $cita->odontologo?->nombreCompleto() ?? 'Dr(a). '.$cita->odontologo?->nombres }}
+                                        </td>
+                                        <td class="py-2.5 px-3 text-gray-600 dark:text-gray-400 max-w-xs truncate">
+                                            {{ $cita->motivo }}
+                                        </td>
+                                        <td class="py-2.5 px-3 whitespace-nowrap">
+                                            @php
+                                                $badgeClasses = match($cita->estado_cita_id) {
+                                                    'programada' => 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300',
+                                                    'atendida' => 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300',
+                                                    'cancelada' => 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300',
+                                                    'no_asistida' => 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
+                                                    default => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+                                                };
+                                            @endphp
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold {{ $badgeClasses }}">
+                                                {{ $cita->estado?->nombre ?? ucfirst($cita->estado_cita_id) }}
+                                            </span>
+                                        </td>
+                                        <td class="py-2.5 px-3 text-right whitespace-nowrap">
+                                            <a href="{{ route('citas.show', ['id' => $cita->id]) }}"
+                                               class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium text-xs">
+                                                Ver detalle &rarr;
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <div class="text-center py-6 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-lg">
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Este paciente no tiene citas registradas aún.</p>
+                        @if ($paciente->estado === 'activo')
+                            <a href="{{ route('citas.crear', ['paciente_id' => $paciente->id]) }}"
+                               class="mt-2 inline-flex items-center text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+                                Programar la primera cita &rarr;
+                            </a>
+                        @endif
+                    </div>
+                @endif
+            </div>
+
             <div class="flex flex-wrap items-center gap-4">
                 <a href="{{ route('pacientes.listar') }}" class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">
                     Volver a pacientes
                 </a>
+
+                @if ($paciente->estado === 'activo')
+                    <a href="{{ route('citas.crear', ['paciente_id' => $paciente->id]) }}"
+                       class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        Programar cita
+                    </a>
+                @endif
 
                 {{-- CU08: inhabilitar / habilitar desde la ficha (el id viaja oculto) --}}
                 @if ($paciente->estado === 'activo')
