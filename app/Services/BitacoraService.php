@@ -21,6 +21,7 @@ class BitacoraService
     public const CIERRE_SESION = 'CIERRE_SESION';
     public const CIERRE_SESION_INACTIVIDAD = 'CIERRE_SESION_INACTIVIDAD';
     public const CAMBIO_CONTRASENA = 'CAMBIO_CONTRASENA';
+    public const RECUPERACION_CONTRASENA = 'RECUPERACION_CONTRASENA';
 
     // Acciones de Usuarios
     public const CREAR_USUARIO = 'CREAR_USUARIO';

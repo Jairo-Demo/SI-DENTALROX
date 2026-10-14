@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Auth\RecuperarContrasenaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,10 @@ Route::middleware('guest')->group(function () {
 
     // Procesar formulario de inicio de sesión
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.ingresar');
+
+    // Recuperar contraseña olvidada
+    Route::get('/recuperar-contrasena', [RecuperarContrasenaController::class, 'create'])->name('password.request');
+    Route::post('/recuperar-contrasena', [RecuperarContrasenaController::class, 'store'])->name('password.email');
 });
 
 // Rutas para usuarios autenticados

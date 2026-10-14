@@ -289,3 +289,33 @@ Se implementa de forma completa y robusta el Ciclo #2 (Sprint 2) para DentalRox,
 6. Rutas y Menu de Navegacion:
    - routes/web.php: Grupo de rutas con metodos GET y POST puros para tratamientos, citas y agenda.
    - app/Services/MenuService.php: Enlace de Tratamientos en Paquete 2 y Agenda / Programar Cita en Paquete 3.
+
+
+=== PASO 14: Implementacion del Flujo de Recuperacion de Contrasena por Correo Electronico ===
+
+TITULO COMMIT:
+Implementacion del modulo de recuperacion de contrasena y envio por correo electronico
+
+EXPLICACION:
+Se implementa la funcionalidad completa de auto-recuperacion de contrasena olvidada para usuarios de DentalRox:
+
+1. Controlador y Reglas de Negocio (app/Http/Controllers/Auth/RecuperarContrasenaController.php):
+   - create(): Muestra el formulario semantico y responsive para solicitar recuperacion de acceso.
+   - store():
+     * Busqueda unificada por nombre de usuario o correo electronico.
+     * Validacion de cuenta existente y estado activo (evita restablecer cuentas inhabilitadas).
+     * Generacion automatica de contrasena temporal segura de 12 caracteres cumpliendo la regla RN-01 (mayusculas, minusculas, numeros y simbolos).
+     * Marcado automatico de 'debe_cambiar_contrasena = true' para que el usuario este obligado a cambiarla inmediatamente al iniciar sesion.
+     * Registro de auditoria en BitacoraService con accion RECUPERACION_CONTRASENA.
+     * Envio de correo electronico con plantilla HTML formateada al correo registrado del usuario.
+     * Manejo resiliente: si el servidor SMTP de correos no estuviese configurado en produccion, se muestra un mensaje informativo seguro para garantizar continuidad de acceso.
+
+2. Envio de Correos y Plantilla (app/Mail/ y resources/views/emails/):
+   - Mailable: RecuperarContrasenaMail con asunto personalizado y codificacion segura.
+   - Plantilla Blade: recuperar-contrasena.blade.php con diseno profesional, membrete de DentalRox, credenciales protegidas y advertencia de seguridad de la regla RN-01.
+
+3. Rutas y Vistas:
+   - routes/auth.php: Rutas publicas GET /recuperar-contrasena (password.request) y POST /recuperar-contrasena (password.email).
+   - resources/views/auth/login.blade.php: Enlace directo '¿Olvido su contrasena?' en el formulario de inicio de sesion.
+   - resources/views/auth/recuperar-contrasena.blade.php: Vista semantica alineada con los estilos de login.css.
+   - public/css/login.css: Clases adicionales para enlaces de ayuda y navegacion de retorno.

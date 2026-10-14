@@ -115,3 +115,35 @@ body {
     color: #6b7280;
     margin-top: 1.5rem;
 }
+
+.help-link {
+    display: inline-block;
+    color: #4f46e5;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    text-align: center;
+    margin-top: 0.75rem;
+}
+
+.help-link:hover {
+    color: #3730a3;
+    text-decoration: underline;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 1.25rem;
+    color: #6b7280;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    color: #111827;
+    text-decoration: underline;
+}
+

@@ -58,7 +58,11 @@
 
             <button type="submit" class="btn-submit">Ingresar al Sistema</button>
             
-            <p class="help-text">Si olvidó su contraseña, comuníquese con el Administrador.</p>
+            <div style="text-align: center; margin-top: 0.8rem;">
+                <a href="{{ route('password.request') }}" class="help-link">¿Olvidó su contraseña?</a>
+            </div>
+
+            <p class="help-text">Si tiene inconvenientes con su cuenta, comuníquese con el Administrador.</p>
         </form>
     </div>
 
